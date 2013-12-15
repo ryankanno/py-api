@@ -1,3 +1,5 @@
 nose
+nose-watch
+nose-progressive
 mock
 requests==2.1.0
