@@ -1,11 +1,18 @@
-from nose.tools import *
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from nose.tools import eq_
 from py_api.api import Api
 from py_api.endpoint import Endpoint
 import unittest
 
 
 class FakeApi(Api):
-    pass
+
+    HOST = "http://github.com"
+
+    def _host(self):
+        return self.HOST
 
 
 class TestEndpoint(unittest.TestCase):
@@ -16,9 +23,8 @@ class TestEndpoint(unittest.TestCase):
         self.method = 'GET'
         self.endpoint = Endpoint(self.api, self.path, method=self.method)
 
-    def tearDown(self):
-        pass
-
     def test_endpoint(self):
         eq_(self.endpoint.path, self.path)
         eq_(self.endpoint.method, self.method)
+
+# vim: filetype=python

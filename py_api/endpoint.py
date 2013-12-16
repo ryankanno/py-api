@@ -40,8 +40,8 @@ class EndpointMethod(object):
         self.endpoint = endpoint
 
     def __call__(self):
-        method = self.endpoint.method
-        url = self.endpoint.url
-        return request(method, url, **kwargs)
+        return requests.request(
+            self.endpoint.method,
+            self.endpoint.url)
 
 # vim: filetype=python
