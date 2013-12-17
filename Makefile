@@ -1,20 +1,18 @@
-.PHONY: nosetests test flake8
+NOSETESTS ?= nosetests
 
-help:
-	@echo 'Usage:                                               '
-	@echo '   make test                Run tests                '
-	@echo '                                                     '
+.PHONY: nosetests nosetests.coverage test flake8
 
 test: nosetests flake8
 
 nosetests:
-	@echo '========== Running nosetests =========='
-	@echo ''
-	@nosetests --with-doctest
-	@echo ''
+	@$(NOSETESTS) --with-doctest
+
+nosetests.coverage:
+	@$(NOSETESTS) --with-xcoverage --cover-package=py_api --cover-tests --with-doctest
 
 flake8:
-	@echo '========== Running flake8 =========='
-	@echo ''
 	@flake8 py_api tests
-	@echo ''
+
+clean:
+	@rm -rf .coverage
+	@rm -rf coverage.xml
