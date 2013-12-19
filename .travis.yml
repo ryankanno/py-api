@@ -4,6 +4,6 @@ python:
 install:
   - pip install -r requirements.txt
   - pip install coveralls
-script: make test
+script: make test.coverage
 after_success:
   - coveralls

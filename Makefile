@@ -3,6 +3,7 @@ NOSETESTS ?= nosetests
 .PHONY: nosetests nosetests.coverage test flake8
 
 test: nosetests flake8
+test.coverage: nosetests.coverage flake8
 
 nosetests:
 	@$(NOSETESTS) --with-doctest
