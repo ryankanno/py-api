@@ -9,10 +9,11 @@ logger = logging.getLogger(__name__)
 
 class Endpoint(object):
 
-    def __init__(self, api, path, method, *args, **kwargs):
-        self._api = api
+    def __init__(self, path, method, *args, **kwargs):
         self._path = path
         self._method = method
+        self._args = args
+        self._kwargs = kwargs
 
     @property
     def path(self):
@@ -22,26 +23,31 @@ class Endpoint(object):
     def method(self):
         return self._method
 
-    # TODO
-    @property
-    def url(self):
-        return ""
-
     def __call__(self, *args, **kwargs):
         def _call_endpoint(api, *args, **kwargs):
-            return EndpointMethod(api, self, *args, **kwargs)()
+            return Requestor(api, self, *args, **kwargs)()
         return _call_endpoint
 
 
-class EndpointMethod(object):
+class Get(Endpoint):
+    def __init__(self, path, *args, **kwargs):
+        super(Get, self).__init__(path, 'GET', *args, **kwargs)
+
+
+class Requestor(object):
 
     def __init__(self, api, endpoint, *args, **kwargs):
         self.api = api
         self.endpoint = endpoint
+        self._args = args
+        self._kwargs = kwargs
+
+    def _construct_url(self, api, endpoint):
+        return (api.host + endpoint.path).format(**self._kwargs)
 
     def __call__(self):
-        return requests.request(
-            self.endpoint.method,
-            self.endpoint.url)
+        url = self._construct_url(self.api, self.endpoint)
+        logger.debug("Making call to {0}".format(url))
+        return requests.request(self.endpoint.method, url).text
 
 # vim: filetype=python

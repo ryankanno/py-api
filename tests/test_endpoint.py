@@ -21,7 +21,7 @@ class TestEndpoint(unittest.TestCase):
         self.api = FakeApi()
         self.path = "/foo/bar"
         self.method = 'GET'
-        self.endpoint = Endpoint(self.api, self.path, method=self.method)
+        self.endpoint = Endpoint(self.path, self.method)
 
     def test_endpoint(self):
         eq_(self.endpoint.path, self.path)
