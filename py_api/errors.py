@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+
 class ApiRequestError(Exception):
     def __init__(self, status_code, error_message, *args, **kwargs):
         super(ApiRequestError, self).__init__(*args, **kwargs)
