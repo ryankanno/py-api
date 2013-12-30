@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 from nose.tools import eq_
-from py_api.api import Api
+from py_api.api import ApiClient
 from py_api.endpoint import Endpoint
 import unittest
 
 
-class FakeApi(Api):
+class FakeApiClient(ApiClient):
 
     HOST = "http://github.com"
 
@@ -18,7 +18,7 @@ class FakeApi(Api):
 class TestEndpoint(unittest.TestCase):
 
     def setUp(self):
-        self.api = FakeApi()
+        self.api = FakeApiClient()
         self.path = "/foo/bar"
         self.method = 'GET'
         self.endpoint = Endpoint(self.path, self.method)

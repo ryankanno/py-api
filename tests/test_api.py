@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 
 from nose.tools import eq_
-from py_api.api import Api
+from py_api.api import ApiClient
 import unittest
 
 
-class FakeApi(Api):
+class FakeApiClient(ApiClient):
 
     HOST = "http://github.com"
 
@@ -17,9 +17,9 @@ class FakeApi(Api):
 class TestApi(unittest.TestCase):
 
     def setUp(self):
-        self.api = FakeApi()
+        self.api = FakeApiClient()
 
     def test_api(self):
-        eq_(self.api.host, FakeApi.HOST)
+        eq_(self.api.host, FakeApiClient.HOST)
 
 # vim: filetype=python
