@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import abc
+import json
 import logging
 import requests
 
@@ -56,6 +57,9 @@ class ApiResponse(object):
     def __init__(self, response, *args, **kwargs):
         super(ApiResponse, self).__init__(*args, **kwargs)
         self.response = response
+
+    def as_json(self):
+        return json.loads(self.response.text)
 
     def __str__(self):
         return self.response.text
