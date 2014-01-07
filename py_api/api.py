@@ -31,8 +31,8 @@ class ApiClient(ApiBase):
     def __init__(self, *args, **kwargs):
         super(ApiClient, self).__init__(*args, **kwargs)
 
-    def request(self, endpoint):
-        request = ApiRequest(self, endpoint)
+    def request(self, endpoint, *args, **kwargs):
+        request = ApiRequest(self, endpoint, *args, **kwargs)
         return request.execute()
 
 
@@ -42,6 +42,8 @@ class ApiRequest(object):
         super(ApiRequest, self).__init__(*args, **kwargs)
         self.api = api
         self.endpoint = endpoint
+        self.args = args
+        self.kwargs = args
 
     def execute(self):
         url = self._construct_url(self.api, self.endpoint)
