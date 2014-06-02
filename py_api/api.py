@@ -18,8 +18,7 @@ class ApiBase(object):
 
     @abc.abstractmethod
     def _host(self):
-        """ must implement """
-        return
+        raise NotImplementedError
 
     @property
     def host(self):
