@@ -57,7 +57,11 @@ class ApiResponse(object):
 
     def __init__(self, response, *args, **kwargs):
         super(ApiResponse, self).__init__(*args, **kwargs)
-        self.response = response
+        self._response = response
+
+    @property
+    def response(self):
+        return self._response
 
     def as_json(self):
         return json.loads(self.response.text)
